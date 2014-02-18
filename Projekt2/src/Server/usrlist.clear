@@ -1,0 +1,8 @@
+username;password;rank;division;
+Doctor1;doc1;1;div1;
+Doctor2;doc2;1;div1;
+Nurse1;nurse1;2;div1;
+Nurse2;nurse1;2;div1;
+Patient1;patient1;3;div1;
+Patient2;patient2;3;div1;
+Agency1;agency1;0;none;
