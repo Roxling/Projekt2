@@ -1,23 +1,33 @@
 package Server;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Server {
-
+	private ServerMonitor monitor;
+	
 	public static void main(String[] args) {
-		String s = "doc1";
-		MessageDigest messageDigest = null;
+		(new Server()).run();
+	}
+	
+	private void run(){
+		
+		Scanner scan = null;
 		try {
-			messageDigest = MessageDigest.getInstance("SHA-256");
-		} catch (NoSuchAlgorithmException e) {
+			scan = new Scanner(new File("/h/d9/j/dat11vro/git/Projekt2/Projekt2/src/Server/usrlist"));
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		messageDigest.update(s.getBytes());
-		String encryptedString = new String(messageDigest.digest());
-		System.out.println(encryptedString);
-
+		monitor = new ServerMonitor();
+		while(scan.hasNext()){
+			User u = new User(scan.nextLine());
+			monitor.addUser(u);
+		}
+		
+		
 	}
 
 }
