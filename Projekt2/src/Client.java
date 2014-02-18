@@ -26,18 +26,16 @@ public class Client {
 		
 		 String host = null;
 	        int port = -1;
-	        for (int i = 0; i < args.length; i++) {
-	            System.out.println("args[" + i + "] = " + args[i]);
-	        }
+	       
 	        if (args.length < 2) {
-	            System.out.println("USAGE: java client host port");
+	            System.out.println("ILLEGAL ARGUMENT; USAGE: java client host port");
 	            System.exit(-1);
 	        }
 	        try { // get input parameters 
 	            host = args[0];
 	            port = Integer.parseInt(args[1]);
 	        } catch (IllegalArgumentException e) {
-	            System.out.println("USAGE: java client host port");
+	            System.out.println("ILLEGAL ARGUMENT; USAGE: java client host port");
 	            System.exit(-1);
 	        }
 
@@ -51,8 +49,8 @@ public class Client {
 	                KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 	                TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 	                SSLContext ctx = SSLContext.getInstance("TLS");
-	                ks.load(new FileInputStream("certs/clientkeystore"), password);  // keystore password (storepass)
-					ts.load(new FileInputStream("certs/clienttruststore"), password); // truststore password (storepass);
+	                ks.load(new FileInputStream("clientkeystore"), password);  // keystore password (storepass)
+					ts.load(new FileInputStream("clienttruststore"), password); // truststore password (storepass);
 					kmf.init(ks, password); // user password (keypass)
 					tmf.init(ts); // keystore can be used as truststore here
 					ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
@@ -74,8 +72,7 @@ public class Client {
 	            SSLSession session = socket.getSession();
 	            X509Certificate cert = (X509Certificate)session.getPeerCertificateChain()[0];
 	            String subject = cert.getSubjectDN().getName();
-	            System.out.println("certificate name (subject DN field) on certificate received from server:\n" + subject + "\n");
-	            System.out.println("socket after handshake:\n" + socket + "\n");
+	            
 	            System.out.println("secure connection established\n\n");
 
 	            
