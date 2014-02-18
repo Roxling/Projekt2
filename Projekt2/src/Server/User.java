@@ -1,28 +1,25 @@
 package Server;
 
 public class User {
+	public static final int RANK_AGENCY = 0;
+	public static final int RANK_DOCTOR = 1;
+	public static final int RANK_NURSE = 2;
+	public static final int RANK_PATIENT = 3;
+	
 	private String username;
 	private String password;
 	private int rank;
 	private String division;
+
 	
-	public User(String line){
-		int first = 0;
-		int second = line.indexOf(';');
-		username = line.substring(first, second);
-		first = second;
-		second = line.indexOf(';', second+1);
-		password = line.substring(first+1, second);
-		first = second;
-		second = line.indexOf(';', second+1);
-		rank = Integer.parseInt(line.substring(first+1, second));
-		first = second;
-		second = line.indexOf(';', second+1);
-		division = line.substring(first+1, second);
-		
+	
+	public User(String username, String password, int rank, String division) {
+		this.username = username;
+		this.password = password;
+		this.rank = rank;
+		this.division = division;
 	}
-	
-	
+
 	public String toString(){
 		return username+";"+password+";"+rank+";"+division+";";
 	}

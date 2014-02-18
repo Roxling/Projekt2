@@ -46,27 +46,7 @@ public class ServerTest implements Runnable{
 		
 	}
 	
-	public void run(){
-		
-		connectToClient();
-		
-		
-		Scanner scan = null;
-		
-		try {
-			scan = new Scanner(new File("/h/d9/j/dat11vro/git/Projekt2/Projekt2/src/Server/usrlist"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		monitor = new ServerMonitor();
-		while(scan.hasNext()){
-			User u = new User(scan.nextLine());
-			monitor.addUser(u);
-		}
-		
-		
-	}
+
 	
 	private void connectToClient(){
 		try {
@@ -136,5 +116,11 @@ public class ServerTest implements Runnable{
         }
         return null;
     }
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

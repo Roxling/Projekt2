@@ -4,7 +4,7 @@ import java.io.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 
-import Server.Hash;
+import Security.Hash;
 
 import java.security.KeyStore;
 import java.security.cert.*;
