@@ -2,7 +2,6 @@ package Server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Server {
@@ -13,7 +12,22 @@ public class Server {
 	}
 	
 	private void run(){
+		readUsers();
+		readRecords();
+		acceptConnections();
+	}
+	
+	private void acceptConnections() {
+		// TODO Auto-generated method stub
 		
+	}
+
+	private void readRecords() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void readUsers(){
 		Scanner scan = null;
 		try {
 			scan = new Scanner(new File("/h/d9/j/dat11vro/git/Projekt2/Projekt2/src/Server/usrlist"));
@@ -26,8 +40,6 @@ public class Server {
 			User u = UserFactory.createUser(scan.nextLine());
 			monitor.addUser(u);
 		}
-		
-		
 	}
 
 }
