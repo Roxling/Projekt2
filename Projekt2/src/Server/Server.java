@@ -23,7 +23,7 @@ public class Server {
 		}
 		monitor = new ServerMonitor();
 		while(scan.hasNext()){
-			User u = new User(scan.nextLine());
+			User u = UserFactory.createUser(scan.nextLine());
 			monitor.addUser(u);
 		}
 		
