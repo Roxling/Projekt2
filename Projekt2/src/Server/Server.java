@@ -81,7 +81,7 @@ public class Server implements Runnable {
 			in.close();
 			out.close();
 			socket.close();
-            System.out.println("client disconnected");
+			System.out.println("Client "+user.getUserName() + " Disconnected");
 		} catch (IOException e) {
             System.out.println("Client died: " + e.getMessage());
             e.printStackTrace();
