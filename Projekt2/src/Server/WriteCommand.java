@@ -26,8 +26,8 @@ public class WriteCommand extends Command {
 		StringBuilder content = new StringBuilder();
 		while(scan.hasNext()){
 			content.append(scan.nextLine());
+			content.append("\n");
 		}
-		content.append("\n");
 		content.append(arg);
 		PrintWriter pw = null;
 		try{

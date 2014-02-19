@@ -1,3 +1,6 @@
 Patient1/nurse1/doctor1/div1
 Kalle har svåra bevär
 väldigt svåra besvär...
+han har mycket ont!
+väldigt ont..
+han dör snart!
