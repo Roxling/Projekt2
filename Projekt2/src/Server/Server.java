@@ -44,6 +44,7 @@ public class Server implements Runnable {
 		}
 		startServer();
 		
+		
 	}
 	
 	public void run(){

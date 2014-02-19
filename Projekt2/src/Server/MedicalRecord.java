@@ -4,8 +4,8 @@ public class MedicalRecord {
 	private String[] accessholders;
 	private String entry;
 	
-	public MedicalRecord(String s, String record){
-		entry = record;
+	public MedicalRecord(String filename){
+		String s = null;
 		
 		int delimiter = 0;
 		int delimiter2 = s.indexOf('/');
@@ -18,7 +18,7 @@ public class MedicalRecord {
 		
 	}
 	
-	public boolean checkPermission(String name, int rank){
+	public boolean getPatient(String name, int rank){
 		for(int i = rank; i<2; i++){
 			if(name == accessholders[i]){
 				return true;
