@@ -4,7 +4,7 @@ public class RemoveCommand extends Command {
 
 	public RemoveCommand(String arg) {
 		super(arg);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

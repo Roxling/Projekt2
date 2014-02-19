@@ -8,8 +8,8 @@ public class CreateCommand extends Command {
 
 	@Override
 	public String exec() {
-		// TODO Auto-generated method stub
-		return "created!!!!";
+		
+		return "2";
 	}
 
 }
