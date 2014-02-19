@@ -12,47 +12,44 @@ import java.io.Console;
 import java.util.Scanner;
 
 public class Client {
-
 	
 	public static void main(String[] args) {
 		
 		connectToHost(args);
 	   
-	}
-	
-	
+	}	
 	
 	public static void connectToHost(String[] args){
 		
 		 String host = null;
+		 
 	        int port = -1;
-	        for (int i = 0; i < args.length; i++) {
-	            System.out.println("args[" + i + "] = " + args[i]);
-	        }
+	       
 	        if (args.length < 2) {
-	            System.out.println("USAGE: java client host port");
+	            System.out.println("ILLEGAL ARGUMENT; USAGE: java client host port");
 	            System.exit(-1);
 	        }
 	        try { // get input parameters 
 	            host = args[0];
 	            port = Integer.parseInt(args[1]);
 	        } catch (IllegalArgumentException e) {
-	            System.out.println("USAGE: java client host port");
+	            System.out.println("ILLEGAL ARGUMENT; USAGE: java client host port");
 	            System.exit(-1);
 	        }
 
 	        try { // set up a key manager for client authentication 
 	            SSLSocketFactory factory = null;
 	            try {
-	            	
-	                char[] password = "password".toCharArray();
+	            	String user = getUser();
+	                char[] password = getPassword();
 	                KeyStore ks = KeyStore.getInstance("JKS");
 	                KeyStore ts = KeyStore.getInstance("JKS");
 	                KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 	                TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 	                SSLContext ctx = SSLContext.getInstance("TLS");
-	                ks.load(new FileInputStream("certs/clientkeystore"), password);  // keystore password (storepass)
-					ts.load(new FileInputStream("certs/clienttruststore"), password); // truststore password (storepass);
+	                
+	                ks.load(new FileInputStream(user+"/clientkeystore"), password);  // keystore password (storepass)
+					ts.load(new FileInputStream(user+"/clienttruststore"), password); // truststore password (storepass);
 					kmf.init(ks, password); // user password (keypass)
 					tmf.init(ts); // keystore can be used as truststore here
 					ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
@@ -74,12 +71,9 @@ public class Client {
 	            SSLSession session = socket.getSession();
 	            X509Certificate cert = (X509Certificate)session.getPeerCertificateChain()[0];
 	            String subject = cert.getSubjectDN().getName();
-	            System.out.println("certificate name (subject DN field) on certificate received from server:\n" + subject + "\n");
-	            System.out.println("socket after handshake:\n" + socket + "\n");
+	            
 	            System.out.println("secure connection established\n\n");
 
-	            
-	            login();
 	            askForMedRecords(socket);
             
 	        	
@@ -91,26 +85,28 @@ public class Client {
 		
 		
 	}
-	
-	public static void login(){
+
+	public static char[] getPassword(){
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Username: ");
-		String usrname = scan.nextLine();
 		
-		System.out.print("Password: ");
-		
-		/*
 		 Console cons = System.console();
 		    if (cons != null){
-		    	char[] password = cons.readPassword();
-			   // System.out.println(password);
+		    	System.out.print("Password: ");
+				return cons.readPassword();
 		    }else{
-		    	System.out.println("There is no console.");
+		    	System.out.println("There is no console. Are you in an IDE?");
+		    	System.out.print("Password: ");
+		    	return  scan.nextLine().toCharArray();
 		    }
-		*/
 		
-		String passwd = scan.nextLine();
-		Hash.Crypt(passwd, "SALT");
+		  //Hash.Crypt(password, "SALT");
+		
+	}
+	
+	public static String getUser(){
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Username: ");
+		return scan.nextLine();
 		
 	}
 
@@ -121,6 +117,7 @@ public class Client {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
         String msg;
+        System.out.println("MooHej");
 		for (;;) {
             System.out.print(">");
             msg = read.readLine();
