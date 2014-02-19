@@ -48,8 +48,8 @@ public class Client {
 	                TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 	                SSLContext ctx = SSLContext.getInstance("TLS");
 	                
-	                ks.load(new FileInputStream(user+"/clientkeystore"), password);  // keystore password (storepass)
-					ts.load(new FileInputStream(user+"/clienttruststore"), password); // truststore password (storepass);
+	                ks.load(new FileInputStream("../Projekt2/Client/" +user+"/keystore"), password);  // keystore password (storepass)
+					ts.load(new FileInputStream("../Projekt2/Client/"+user+"/truststore"), password); // truststore password (storepass);
 					kmf.init(ks, password); // user password (keypass)
 					tmf.init(ts); // keystore can be used as truststore here
 					ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
@@ -94,7 +94,6 @@ public class Client {
 		    	System.out.print("Password: ");
 				return cons.readPassword();
 		    }else{
-		    	System.out.println("There is no console. Are you in an IDE?");
 		    	System.out.print("Password: ");
 		    	return  scan.nextLine().toCharArray();
 		    }
