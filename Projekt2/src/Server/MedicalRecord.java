@@ -1,31 +1,66 @@
 package Server;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class MedicalRecord {
-	private String[] accessholders;
+	private String file;
+	private String patient;
+	private String doctor;
+	private String nurse;
+	private String division;
 	private String entry;
 	
 	public MedicalRecord(String filename){
-		String s = null;
-		
-		int delimiter = 0;
-		int delimiter2 = s.indexOf('/');
-		for(int i = 0; i<4; i++){
-			accessholders[i] = s.substring(delimiter,delimiter2-1);
-			delimiter = delimiter2;
-			delimiter2 = s.indexOf('/', delimiter+1);
-		}
-				
-		
-	}
-	
-	public boolean getPatient(String name, int rank){
-		for(int i = rank; i<2; i++){
-			if(name == accessholders[i]){
-				return true;
+		Scanner scan = null;
+		File f = new File("Records/"+filename);
+		if(f.exists()){
+			try {
+				scan = new Scanner(f);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}	
-		return false;
+			String line = scan.nextLine();
+			scan.close();
+			extractInfo(line);
+		}
 		
 	}
+
+	private void extractInfo(String line){
+		int first = 0;
+		int second = line.indexOf("/");
+		patient = line.substring(first, second);
+		first = second+1;
+		second = line.indexOf("/", second+2);
+		nurse = line.substring(first, second);
+		first = second+1;
+		second = line.indexOf("/", second+2);
+		doctor = line.substring(first, second);
+		first = second+1;
+		second = line.length();
+		division = line.substring(first, second);
+	}
 	
+	public String getPatient(){
+		return patient;
+	}
+	
+	public String getNurse(){
+		return nurse;
+	}
+	
+	public String getDoctor(){
+		return doctor;
+	}
+	
+	public String getDivision(){
+		return division;
+	}
+	
+	public String toString(){
+		return patient+" "+nurse+" "+doctor+" "+division;
+	}
 }
