@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 public class Test {
 
 	public static void main(String[] args) {
-		String line = "-create   testfile3.txt asd/s/s/as";
+		String line = "-write testfile3.txt hehjeh";
 		String[] s = CommandFactory.getArgs(line);
 		System.out.println(s[0] +" "+s[1]);
 		
