@@ -6,7 +6,7 @@ public class User {
 	public static final int RANK_NURSE = 2;
 	public static final int RANK_PATIENT = 3;
 	
-	private String username;
+	protected String username;
 	private int rank;
 	private String division;
 
@@ -26,4 +26,9 @@ public class User {
 	public String getUserName() {
 		return username;
 	}
+
+	public String welcomeMessage(){
+		return "Welcome, generic user " + username +"!";
+	}
+		
 }

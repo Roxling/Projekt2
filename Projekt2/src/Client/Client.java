@@ -99,7 +99,6 @@ public class Client {
 		    	return  scan.nextLine().toCharArray();
 		    }
 		
-		  //Hash.Crypt(password, "SALT");
 		
 	}
 	
@@ -117,15 +116,21 @@ public class Client {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
         String msg;
-		for (;;) {
+        boolean finished = false;
+        System.out.println("Enter a command, type 'quit' to logout:");
+		while(!finished) {
+			
             System.out.print(">");
             msg = read.readLine();
             if (msg.equalsIgnoreCase("quit")) {
-			    break;
+			    finished=true;
+			}else{
+            	
+            	out.println(msg);
+            	out.flush();
+            	
+            	System.out.println(in.readLine());
 			}
-            System.out.print("sending '" + msg + "' to server...");
-            out.println(msg);
-            out.flush();
 
         }
 		

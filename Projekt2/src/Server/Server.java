@@ -53,8 +53,13 @@ public class Server implements Runnable {
             SSLSession session = socket.getSession();
             X509Certificate cert = (X509Certificate)session.getPeerCertificateChain()[0];
             String subject = cert.getSubjectDN().getName();
+            
             System.out.println("client connected");
             System.out.println("client name (cert subject DN field): " + subject);
+            
+            UserFactory uf = new UserFactory();
+            User user = uf.createUser(subject);
+            
 
             PrintWriter out = null;
             BufferedReader in = null;
@@ -62,11 +67,10 @@ public class Server implements Runnable {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             String clientMsg = null;
-            while ((clientMsg = in.readLine()) != null) {
-			    String rev = new StringBuilder(clientMsg).reverse().toString();
-                System.out.println("received '" + clientMsg + "' from client");
-                System.out.print("sending '" + rev + "' to client...");
-				out.println(rev);
+            out.println(user.welcomeMessage());
+            while ((clientMsg = in.readLine()) != null) {		   
+                
+            	
 				out.flush();
                 System.out.println("done\n");
 			}
