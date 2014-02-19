@@ -1,22 +1,30 @@
 package Client;
-import java.net.*;
-import java.io.*;
-
-import javax.net.ssl.*;
-import javax.security.cert.X509Certificate;
-
-import Security.Hash;
-
-import java.security.KeyStore;
-import java.security.cert.*;
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ConnectException;
+import java.security.KeyStore;
 import java.util.Scanner;
 
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
+import javax.security.cert.X509Certificate;
+
 public class Client {
+	private static Scanner consoleScanner;
 	
 	public static void main(String[] args) {
-		
+		consoleScanner = new Scanner(System.in);
 		connectToHost(args);
+		consoleScanner.close();
 	   
 	}	
 	
@@ -40,26 +48,36 @@ public class Client {
 
 	        try { // set up a key manager for client authentication 
 	            SSLSocketFactory factory = null;
-	            try {
-	            	String user = getUser();
-	                char[] password = getPassword();
-	                KeyStore ks = KeyStore.getInstance("JKS");
-	                KeyStore ts = KeyStore.getInstance("JKS");
-	                KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
-	                TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
-	                SSLContext ctx = SSLContext.getInstance("TLS");
-	                
-	                ks.load(new FileInputStream("../Projekt2/Client/" +user+"/keystore"), password);  // keystore password (storepass)
-					ts.load(new FileInputStream("../Projekt2/Client/"+user+"/truststore"), password); // truststore password (storepass);
-					kmf.init(ks, password); // user password (keypass)
-					tmf.init(ts); // keystore can be used as truststore here
-					ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-	                factory = ctx.getSocketFactory();
-	            } catch (Exception e) {
-	                throw new IOException(e.getMessage());
+	            boolean success = false;
+	            while(!success){
+	            	try {
+	            		String user = getUser();
+	            		char[] password = getPassword();
+	            		KeyStore ks = KeyStore.getInstance("JKS");
+	            		KeyStore ts = KeyStore.getInstance("JKS");
+	            		KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+	            		TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+	            		SSLContext ctx = SSLContext.getInstance("TLS");
+	            		
+	            		ks.load(new FileInputStream("../Projekt2/Client/" +user+"/keystore"), password);  // keystore password (storepass)
+	            		ts.load(new FileInputStream("../Projekt2/Client/"+user+"/truststore"), password); // truststore password (storepass);
+	            		kmf.init(ks, password); // user password (keypass)
+	            		tmf.init(ts); // keystore can be used as truststore here
+	            		ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+	            		factory = ctx.getSocketFactory();
+	            		success = true;
+	            	} catch (Exception e) {
+	            		System.out.println("Invalid username or password");
+	            	}
+	            	
 	            }
-	            SSLSocket socket = (SSLSocket)factory.createSocket(host, port);
-	            System.out.println("\nsocket before handshake:\n" + socket + "\n");
+	            SSLSocket socket = null;
+	            try{
+	            	socket = (SSLSocket)factory.createSocket(host, port);
+	            }catch(ConnectException e){
+	            	System.out.println("Server offline, try again later");
+	            	System.exit(1);
+	            }
 
 	            /*
 	             * send http request
@@ -71,7 +89,6 @@ public class Client {
 
 	            SSLSession session = socket.getSession();
 	            X509Certificate cert = (X509Certificate)session.getPeerCertificateChain()[0];
-	            String subject = cert.getSubjectDN().getName();
 	            
 	            System.out.println("secure connection established\n\n");
 
@@ -88,24 +105,24 @@ public class Client {
 	}
 
 	public static char[] getPassword(){
-		Scanner scan = new Scanner(System.in);
 		
-		 Console cons = System.console();
-		    if (cons != null){
-		    	System.out.print("Password: ");
-				return cons.readPassword();
-		    }else{
-		    	System.out.print("Password: ");
-		    	return  scan.nextLine().toCharArray();
-		    }
-		
+		Console cons = System.console();
+		char[] pw;
+		System.out.print("Password: ");
+	    if (cons != null){
+			pw = cons.readPassword();
+	    }else{
+	    	String s =consoleScanner.nextLine();
+	    	pw = s.toCharArray();
+	    }
+		return pw;
 		
 	}
 	
 	public static String getUser(){
-		Scanner scan = new Scanner(System.in);
 		System.out.print("Username: ");
-		return scan.nextLine();
+		String user = consoleScanner.nextLine();
+		return user;
 		
 	}
 
