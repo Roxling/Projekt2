@@ -1,4 +1,5 @@
 package Client;
+
 import java.net.*;
 import java.io.*;
 
@@ -93,21 +94,17 @@ public class Client {
 		 Console cons = System.console();
 		    if (cons != null){
 		    	System.out.print("Password: ");
-				return cons.readPassword();
+		    	return cons.readPassword();
 		    }else{
 		    	System.out.print("Password: ");
 		    	return  scan.nextLine().toCharArray();
-		    }
-		
-		  //Hash.Crypt(password, "SALT");
-		
+		    }	
 	}
 	
 	public static String getUser(){
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Username: ");
-		return scan.nextLine();
-		
+		return scan.nextLine();	
 	}
 
 	public static void askForMedRecords(SSLSocket socket) throws IOException{
@@ -117,17 +114,20 @@ public class Client {
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
         String msg;
-        System.out.println("MooHej");
 		for (;;) {
             System.out.print(">");
             msg = read.readLine();
             if (msg.equalsIgnoreCase("quit")) {
 			    break;
 			}
-            System.out.print("sending '" + msg + "' to server...");
+            System.out.println("sending '" + msg + "' to server...");
             out.println(msg);
             out.flush();
-
+            
+            System.out.println("received '" + in.readLine() + "' from server\n");
+            
+            
+          
         }
 		
 		in.close();

@@ -38,7 +38,7 @@ public class Server implements Runnable {
 		try{
 			port = Integer.parseInt(args[0]);
 		}catch(Exception e){
-			System.out.println("Invalig arguments, enter port");
+			System.out.println("Invalid arguments, enter port");
 			System.exit(1);
 		}
 		startServer();
@@ -70,6 +70,7 @@ public class Server implements Runnable {
 				out.flush();
                 System.out.println("done\n");
 			}
+            
 			in.close();
 			out.close();
 			socket.close();
@@ -83,7 +84,6 @@ public class Server implements Runnable {
 	}
 	
 	private void newConnection() { (new Thread(this)).start(); }
-	
 
 	private static void startServer() {
 		try {
@@ -91,12 +91,10 @@ public class Server implements Runnable {
 			ServerSocket ss = ssf.createServerSocket(port);
 			((SSLServerSocket)ss).setNeedClientAuth(true); // enables client authentication
 			new Server(ss);
-			
 		} catch (IOException e) {
 			System.out.println("Unable to start Server: " + e.getMessage());
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 
 	private static ServerSocketFactory getServerSocketFactory() {
