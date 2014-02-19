@@ -9,26 +9,24 @@ public class Nurse extends User {
 
 	@Override
 	protected boolean hasCreatePermission(Command c) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected boolean hasRemovePermission(Command c) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected boolean hasWritePermission(Command c) {
-		// TODO Auto-generated method stub
-		return false;
+		MedicalRecord med = mon.getRecord(c.filename);
+		return (med.getNurse().equals(username));
 	}
 
 	@Override
 	protected boolean hasReadPermission(Command c) {
-		// TODO Auto-generated method stub
-		return false;
+		MedicalRecord med = mon.getRecord(c.filename);
+		return (med.getDivision().equals(division) || med.getNurse().equals(username));
 	}
 
 }

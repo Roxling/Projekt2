@@ -32,9 +32,8 @@ public class Patient extends User {
 
 	@Override
 	protected boolean hasReadPermission(Command c) {
-		//MedicalRecord med = new MedicalRecord(c.filename);
-		//return med.getPatient().equals(username);
-		return false;
+		MedicalRecord med = mon.getRecord(c.filename);
+		return med.getPatient().equals(username);
 	}
 	
 }
