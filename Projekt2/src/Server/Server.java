@@ -29,7 +29,7 @@ public class Server implements Runnable {
 	
 	private ServerSocket serverSocket;
 	
-	public Server(ServerSocket ss){
+	public Server(ServerSocket ss,ServerMonitor mon){
 		this.serverSocket = ss;
 		newConnection();
 	}
@@ -54,11 +54,14 @@ public class Server implements Runnable {
             X509Certificate cert = (X509Certificate)session.getPeerCertificateChain()[0];
             String subject = cert.getSubjectDN().getName();
             
-            System.out.println("client connected");
-            System.out.println("client name (cert subject DN field): " + subject);
-            
-            UserFactory uf = new UserFactory();
-            User user = uf.createUser(subject);
+           
+            User user = UserFactory.createUser(subject);
+            if(user == null){
+            	System.out.println("Client invalid cert");
+            	socket.close();
+            	return;
+            }
+            System.out.println("Client"+user.getUserName() + "connected");
             
 
             PrintWriter out = null;
@@ -68,9 +71,16 @@ public class Server implements Runnable {
 
             String clientMsg = null;
             out.println(user.welcomeMessage());
+            out.flush();
             while ((clientMsg = in.readLine()) != null) {		   
+                Command c = CommandFactory.createCommand(clientMsg);
+            	if(c == null){
+            		out.println("Invalid command");
+            	}else{
+            		String s = monitor.execCommand(user,c);
+            		out.println(s);
+            	}
                 
-            	
 				out.flush();
                 System.out.println("done\n");
 			}
@@ -94,7 +104,7 @@ public class Server implements Runnable {
 			ServerSocketFactory ssf = getServerSocketFactory();
 			ServerSocket ss = ssf.createServerSocket(port);
 			((SSLServerSocket)ss).setNeedClientAuth(true); // enables client authentication
-			new Server(ss);
+			new Server(ss,new ServerMonitor());
 		} catch (IOException e) {
 			System.out.println("Unable to start Server: " + e.getMessage());
 			e.printStackTrace();

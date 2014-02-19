@@ -1,12 +1,17 @@
 package Server;
 
-import java.util.HashMap;
 
 public class ServerMonitor {
-	private HashMap<String,User> users = new HashMap<String,User>();
 	
 	public synchronized void addUser(User u){
-		users.put(u.getUserName(), u);
+		
+	}
+
+	public synchronized String execCommand(User user, Command c) {
+		if(user.hasPermission(c)){
+			return c.exec();
+		}
+		return "Permission denied";
 	}
 	
 	

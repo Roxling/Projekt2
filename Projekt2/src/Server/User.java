@@ -30,5 +30,9 @@ public class User {
 	public String welcomeMessage(){
 		return "Welcome, generic user " + username +"!";
 	}
+
+	public boolean hasPermission(Command c) {
+		return true;
+	}
 		
 }
