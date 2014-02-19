@@ -8,8 +8,36 @@ import java.util.Scanner;
 
 
 public class ServerMonitor {
-	HashMap<String,User> users = new HashMap<>();
-	HashMap<String,MedicalRecord> records = new HashMap();
+	private HashMap<String,User> users = new HashMap<>();
+	private HashMap<String,MedicalRecord> records = new HashMap();
+	private File logfile;
+	private PrintWriter logger;
+	
+	public ServerMonitor(){
+		logfile = new File("Server/log");
+		Scanner scan = null;
+		try {
+			scan = new Scanner(logfile);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		StringBuilder sb = new StringBuilder();
+		while(scan.hasNext()){
+			sb.append(scan.nextLine());
+		}
+		
+		sb.append("\n");
+
+		try {
+			logger = new PrintWriter(logfile);
+		} catch (FileNotFoundException e) {
+
+			e.printStackTrace();
+		}
+		logger.println(sb.toString());
+		
+	}
 	
 	public synchronized void addUser(User u){
 		users.put(u.getUserName(),u);
@@ -40,29 +68,11 @@ public class ServerMonitor {
 	}
 	
 	public synchronized void addToLog(String command){
-		File f = new File("Server/log");
-		if(!f.exists()) System.out.println("Server log does not exist.");
-		Scanner scan = null;
-		try {
-			scan = new Scanner(f);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		StringBuilder content = new StringBuilder();
-		while(scan.hasNext()){
-			content.append(scan.nextLine());
-		}
-		content.append("\n");
-		content.append(command);
-		PrintWriter pw = null;
-		try{
-			pw = new PrintWriter(f);
-		}catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		pw.write(content.toString());
-		scan.close();
-		pw.close();
+		logger.println(command);
+	}
+	
+	public synchronized void closeLog(){
+		logger.close();
 	}
 	
 	

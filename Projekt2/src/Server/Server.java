@@ -73,7 +73,7 @@ public class Server implements Runnable {
             	String s = monitor.execCommand(user,c);
             	out.println(s);
 				out.flush();
-				monitor.addToLog(clientMsg);
+				monitor.addToLog(subject +" : " + clientMsg + "\n");
 			}
 			in.close();
 			out.close();
