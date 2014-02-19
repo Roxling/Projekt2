@@ -126,9 +126,10 @@ public class Client {
 
 	public static void communicate(SSLSocket socket) throws IOException{
 	
-		BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+		Scanner read = new Scanner(System.in);
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        //BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        Scanner in = new Scanner(socket.getInputStream());
 		
         String msg;
         boolean finished = false;
@@ -136,7 +137,7 @@ public class Client {
 		while(!finished) {
 			
             System.out.print(">");
-            msg = read.readLine();
+            msg = read.nextLine();
             if (msg.equalsIgnoreCase("quit")) {
 			    finished=true;
 			}else if(msg.equalsIgnoreCase("help")){
@@ -145,10 +146,11 @@ public class Client {
             else{
             	out.println(msg);
             	out.flush();
-            	
-            	System.out.println(in.readLine());
+            	String s;
+            	while((s=in.nextLine()).length() > 1){
+            		System.out.println(s);
+            	}
 			}
-
         }
 		
 		in.close();

@@ -6,11 +6,10 @@ import java.util.Scanner;
 
 public class MedicalRecord {
 	private String file;
-	private String patient;
-	private String doctor;
-	private String nurse;
-	private String division;
-	private String entry;
+	private String patient = "";
+	private String doctor = "";
+	private String nurse = "";
+	private String division = "";
 	
 	public MedicalRecord(String filename){
 		Scanner scan = null;
