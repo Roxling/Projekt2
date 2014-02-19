@@ -15,11 +15,11 @@ public class ReadCommand extends Command {
 	public String exec() throws FileNotFoundException {
 		String retLine = "";
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader("../Records/" + this.filename));
+			BufferedReader reader = new BufferedReader(new FileReader("../Projekt2/Records/" + this.filename));
 			String line = null;
 			System.out.println("hjaksdha");
 			while ((line = reader.readLine()) != null) {
-			    retLine+=line;
+			    retLine+=(line+ "\n");
 			}
 			reader.close();
 		}catch(Exception e){
