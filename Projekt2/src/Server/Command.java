@@ -9,6 +9,7 @@ public abstract class Command {
 	public static final int WRITE_COMMAND = 3;
 	protected String arg;
 	protected String filename;
+	protected int commandnum = -1;
 	public Command(String arg){
 		String args[] = CommandFactory.getArgs(arg);
 		this.filename = args[0];
@@ -16,4 +17,8 @@ public abstract class Command {
 	}
 	
 	public abstract String exec() throws FileNotFoundException;
+	
+	public int getCommandnum(){
+		return commandnum;
+	}
 }

@@ -9,7 +9,7 @@ public class WriteCommand extends Command {
 
 	public WriteCommand(String arg) {
 		super(arg);
-		// TODO Auto-generated constructor stub
+		commandnum = Command.WRITE_COMMAND;
 	}
 
 	@Override

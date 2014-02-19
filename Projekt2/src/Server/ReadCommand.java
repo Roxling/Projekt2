@@ -8,7 +8,7 @@ public class ReadCommand extends Command {
 
 	public ReadCommand(String arg) {
 		super(arg);
-		
+		commandnum = Command.READ_COMMAND;
 	}
 
 	@Override

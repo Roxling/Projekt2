@@ -14,5 +14,26 @@ public class Patient extends User {
 	public String welcomeMessage(){
 		return "Welcome, patient " + this.username;
 	}
+
+	@Override
+	protected boolean hasCreatePermission(Command c) {
+		return false;
+	}
+
+	@Override
+	protected boolean hasRemovePermission(Command c) {
+		return false;
+	}
+
+	@Override
+	protected boolean hasWritePermission(Command c) {
+		return false;
+	}
+
+	@Override
+	protected boolean hasReadPermission(Command c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

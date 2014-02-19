@@ -1,6 +1,6 @@
 package Server;
 
-public class User {
+public abstract class User {
 	public static final int RANK_AGENCY = 0;
 	public static final int RANK_DOCTOR = 1;
 	public static final int RANK_NURSE = 2;
@@ -32,7 +32,18 @@ public class User {
 	}
 
 	public boolean hasPermission(Command c) {
-		return true;
+		switch(c.getCommandnum()){
+		case Command.CREATE_COMMAND : return hasCreatePermission(c);
+		case Command.READ_COMMAND : return hasReadPermission(c);
+		case Command.REMOVE_COMMAND : return hasRemovePermission(c);
+		case Command.WRITE_COMMAND : return hasWritePermission(c);
+		}
+		return false;
 	}
+	
+	protected abstract boolean hasCreatePermission(Command c);
+	protected abstract boolean hasRemovePermission(Command c);
+	protected abstract boolean hasWritePermission(Command c);
+	protected abstract boolean hasReadPermission(Command c);
 		
 }

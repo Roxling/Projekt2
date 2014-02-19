@@ -1,16 +1,20 @@
 package Server;
 
+import java.io.File;
+
 public class RemoveCommand extends Command {
 
 	public RemoveCommand(String arg) {
 		super(arg);
-		
+		commandnum = Command.READ_COMMAND;
 	}
 
 	@Override
 	public String exec() {
-		// TODO Auto-generated method stub
-		return "";
+		File f = new File("Records/"+filename);
+		if(!f.exists()) return "File "+filename+" does not exist.";
+		f.delete();
+		return "File "+filename+" deleted";
 	}
 
 }

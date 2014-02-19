@@ -8,6 +8,7 @@ public class CreateCommand extends Command {
 
 	public CreateCommand(String arg) {
 		super(arg);
+		commandnum = Command.CREATE_COMMAND;
 	}
 
 	@Override
