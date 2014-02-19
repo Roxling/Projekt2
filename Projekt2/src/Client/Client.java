@@ -161,7 +161,7 @@ public class Client {
 
 	private static void writeHelp() {
 		System.out.println("\t\t\t /* HELP */");
-		System.out.println("-create [filename] [header] \t\t\t to create a medical record");
+		System.out.println("-create [filename] [header] \t\t\t to create a medical record, HeaderSyntax 'Patient/Nurse/Doctor/Div'");
 		System.out.println("-remove [filename] \t\t\t\t to remove a medical record");
 		System.out.println("-read [filename] \t\t\t\t to read a medical record");
 		System.out.println("-write [filename] [content] \t\t\t to write content to a medical record");

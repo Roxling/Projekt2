@@ -16,6 +16,9 @@ public class CreateCommand extends Command {
 		String filepath = "Records/"+filename;
 		File f = new File(filepath);
 		if(f.exists()) return "File already exists";
+		if(!checkSyntax(arg)){
+			return "Header not in valid format";
+		}
 		try {
 			pw = new PrintWriter(f);
 		} catch (FileNotFoundException e) {
@@ -25,6 +28,18 @@ public class CreateCommand extends Command {
 		pw.println(arg);
 		pw.close();
 		return filename+" created successfully";
+	}
+	
+	private boolean checkSyntax(String arg){
+		int count=0;
+		for(int i = 1; i< arg.length() ; i++){
+			if(i >= arg.length()) return false;
+			if(arg.charAt(i) == '/'){
+				count++;
+				i++;
+			}
+		}
+		return count == 3;
 	}
 
 }
