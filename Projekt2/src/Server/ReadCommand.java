@@ -1,8 +1,10 @@
 package Server;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Scanner;
 
 public class ReadCommand extends Command {
 
@@ -14,18 +16,16 @@ public class ReadCommand extends Command {
 	@Override
 	public String exec() throws FileNotFoundException {
 		String retLine = "";
-		try{
-			BufferedReader reader = new BufferedReader(new FileReader("../Projekt2/Records/" + this.filename));
-			String line = null;
-			System.out.println("hjaksdha");
-			while ((line = reader.readLine()) != null) {
-			    retLine+=(line+ "\n");
-			}
-			reader.close();
-		}catch(Exception e){
-			System.out.println(this.filename + " doesn't exist, or it is corrupt");
+		File f = new File("Records/"+filename);
+		if(!f.exists()) return "File "+filename+" not found";
+		Scanner scan = new Scanner(f);
+		StringBuilder sb = new StringBuilder();
+		while(scan.hasNext()){
+			sb.append(scan.nextLine());
+			sb.append("\n");
 		}
-		return retLine;
+		scan.close();
+		return sb.toString();
 	}
 
 }

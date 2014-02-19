@@ -71,7 +71,7 @@ public class Server implements Runnable {
             while ((clientMsg = in.readLine()) != null) {		   
                 Command c = CommandFactory.createCommand(clientMsg);
             	String s = monitor.execCommand(user,c);
-            	out.println(s);
+            	out.print(s+"\n");
 				out.flush();
 				monitor.addToLog(subject +" : " + clientMsg + "\n");
 			}
