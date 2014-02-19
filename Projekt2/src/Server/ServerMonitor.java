@@ -15,6 +15,7 @@ public class ServerMonitor {
 	
 	public ServerMonitor(){
 		logfile = new File("log.txt");
+		String s = "";
 		if(logfile.exists()){
 			Scanner scan = null;
 			try {
@@ -30,16 +31,16 @@ public class ServerMonitor {
 			
 			sb.append("\n");
 			
-			try {
-				logger = new PrintWriter(logfile);
-			} catch (FileNotFoundException e) {
-				
-				e.printStackTrace();
-			}
-			logger.println(sb.toString());
+			s = sb.toString();
 			scan.close();
-			
 		}
+		try {
+			logger = new PrintWriter(logfile);
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+		logger.println(s);
 		
 	}
 	
