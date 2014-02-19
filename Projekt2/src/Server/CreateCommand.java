@@ -19,7 +19,7 @@ public class CreateCommand extends Command {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "created!!!!";
+		return "";
 	}
 
 }
