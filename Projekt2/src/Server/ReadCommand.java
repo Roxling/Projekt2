@@ -15,16 +15,16 @@ public class ReadCommand extends Command {
 	public String exec() throws FileNotFoundException {
 		String retLine = "";
 		try{
-			BufferedReader reader = new BufferedReader(new FileReader("../../Records/" + arg));
+			BufferedReader reader = new BufferedReader(new FileReader("../Records/" + this.filename));
 			String line = null;
+			System.out.println("hjaksdha");
 			while ((line = reader.readLine()) != null) {
 			    retLine+=line;
 			}
-			
+			reader.close();
 		}catch(Exception e){
-			System.out.println(arg + " doesn't exist, or it is corrupt");
+			System.out.println(this.filename + " doesn't exist, or it is corrupt");
 		}
-
 		return retLine;
 	}
 

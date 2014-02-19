@@ -24,11 +24,11 @@ public class CommandFactory {
 			case Command.CREATE_COMMAND:
 				return new CreateCommand(argument);
 			case Command.REMOVE_COMMAND:
-				return new CreateCommand(argument);
+				return new RemoveCommand(argument);
 			case Command.READ_COMMAND:
-				return new CreateCommand(argument);
+				return new ReadCommand(argument);
 			case Command.WRITE_COMMAND:
-				return new CreateCommand(argument);
+				return new WriteCommand(argument);
 			}
 		}catch(Exception e){}
 		return new NoCommand("");
