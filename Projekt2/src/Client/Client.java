@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ConnectException;
+import java.nio.CharBuffer;
 import java.security.KeyStore;
 import java.util.Scanner;
 
@@ -128,8 +129,8 @@ public class Client {
 	
 		Scanner read = new Scanner(System.in);
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        //BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        Scanner in = new Scanner(socket.getInputStream());
+        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        //Scanner in = new Scanner(socket.getInputStream());
 		
         String msg;
         boolean finished = false;
@@ -146,10 +147,10 @@ public class Client {
             else{
             	out.println(msg);
             	out.flush();
-            	String s;
-            	while((s=in.nextLine()).length() > 1){
-            		System.out.println(s);
-            	}
+            	char ch;
+            	StringBuilder sb = new StringBuilder();
+            	while((ch = (char) in.read())!= 0) sb.append(ch);
+            	System.out.println(sb);
 			}
         }
 		
