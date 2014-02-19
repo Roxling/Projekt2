@@ -32,7 +32,8 @@ public class Patient extends User {
 
 	@Override
 	protected boolean hasReadPermission(Command c) {
-		// TODO Auto-generated method stub
+		//MedicalRecord med = new MedicalRecord(c.filename);
+		//return med.getPatient().equals(username);
 		return false;
 	}
 	

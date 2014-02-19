@@ -7,7 +7,7 @@ public abstract class User {
 	public static final int RANK_PATIENT = 3;
 	
 	protected String username;
-	private int rank;
+	protected int rank;
 	private String division;
 
 	
