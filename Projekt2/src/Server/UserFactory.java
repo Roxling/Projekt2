@@ -14,11 +14,11 @@ public class UserFactory {
 			int rank = Integer.parseInt(args[1]);
 			switch(rank){
 			case User.RANK_AGENCY:
-				return null;
+				return new User(args[0],rank,args[2]);
 			case User.RANK_DOCTOR:
-				return null;
+				return new User(args[0],rank,args[2]);
 			case User.RANK_NURSE:
-				return null;
+				return new User(args[0],rank,args[2]);
 			case User.RANK_PATIENT:
 				return new Patient(args[0],rank,args[2]);
 			}

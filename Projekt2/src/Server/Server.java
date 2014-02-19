@@ -31,6 +31,7 @@ public class Server implements Runnable {
 	
 	public Server(ServerSocket ss,ServerMonitor mon){
 		this.serverSocket = ss;
+		this.monitor = mon;
 		newConnection();
 	}
 	
@@ -61,7 +62,7 @@ public class Server implements Runnable {
             	socket.close();
             	return;
             }
-            System.out.println("Client"+user.getUserName() + "connected");
+            System.out.println("Client "+user.getUserName() + " connected");
             
 
             PrintWriter out = null;
@@ -70,19 +71,11 @@ public class Server implements Runnable {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             String clientMsg = null;
-            out.println(user.welcomeMessage());
-            out.flush();
             while ((clientMsg = in.readLine()) != null) {		   
                 Command c = CommandFactory.createCommand(clientMsg);
-            	if(c == null){
-            		out.println("Invalid command");
-            	}else{
-            		String s = monitor.execCommand(user,c);
-            		out.println(s);
-            	}
-                
+            	String s = monitor.execCommand(user,c);
+            	out.println(s);
 				out.flush();
-                System.out.println("done\n");
 			}
             
 			in.close();
