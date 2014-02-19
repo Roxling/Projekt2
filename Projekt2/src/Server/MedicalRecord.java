@@ -2,16 +2,29 @@ package Server;
 
 public class MedicalRecord {
 	private String[] accessholders;
-	private String Entry;
+	private String entry;
 	
-	public MedicalRecord(String s){
-		accessholders[0] = s.substring(0,s.indexOf("/"));
-		accessholders[0] = s.substring(s.indexOf("/"),s.indexOf("/"));
+	public MedicalRecord(String s, String record){
+		entry = record;
+		
+		int delimiter = 0;
+		int delimiter2 = s.indexOf('/');
+		for(int i = 0; i<4; i++){
+			accessholders[i] = s.substring(delimiter,delimiter2-1);
+			delimiter = delimiter2;
+			delimiter2 = s.indexOf('/', delimiter+1);
+		}
+				
 		
 	}
 	
-	public boolean checkPermission(){
-		return true;
+	public boolean checkPermission(String name, int rank){
+		for(int i = rank; i<2; i++){
+			if(name == accessholders[i]){
+				return true;
+			}
+		}	
+		return false;
 		
 	}
 	
