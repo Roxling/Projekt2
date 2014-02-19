@@ -14,28 +14,32 @@ public class ServerMonitor {
 	private PrintWriter logger;
 	
 	public ServerMonitor(){
-		logfile = new File("Server/log");
-		Scanner scan = null;
-		try {
-			scan = new Scanner(logfile);
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		logfile = new File("log.txt");
+		if(logfile.exists()){
+			Scanner scan = null;
+			try {
+				scan = new Scanner(logfile);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			StringBuilder sb = new StringBuilder();
+			while(scan.hasNext()){
+				sb.append(scan.nextLine());
+			}
+			
+			sb.append("\n");
+			
+			try {
+				logger = new PrintWriter(logfile);
+			} catch (FileNotFoundException e) {
+				
+				e.printStackTrace();
+			}
+			logger.println(sb.toString());
+			scan.close();
+			
 		}
-		StringBuilder sb = new StringBuilder();
-		while(scan.hasNext()){
-			sb.append(scan.nextLine());
-		}
-		
-		sb.append("\n");
-
-		try {
-			logger = new PrintWriter(logfile);
-		} catch (FileNotFoundException e) {
-
-			e.printStackTrace();
-		}
-		logger.println(sb.toString());
 		
 	}
 	
