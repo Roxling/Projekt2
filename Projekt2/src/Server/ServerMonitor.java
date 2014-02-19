@@ -1,5 +1,6 @@
 package Server;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 
@@ -16,7 +17,11 @@ public class ServerMonitor {
 
 	public synchronized String execCommand(User user, Command c) {
 		if(user.hasPermission(c)){
-			return c.exec();
+			try {
+				return c.exec();
+			} catch (FileNotFoundException e) {
+				System.out.println("There is no such file");
+			}
 		}
 		return "Permission denied";
 	}

@@ -1,5 +1,7 @@
 package Server;
 
+import java.io.FileNotFoundException;
+
 public abstract class Command {
 	public static final int CREATE_COMMAND = 0;
 	public static final int REMOVE_COMMAND = 1;
@@ -13,5 +15,5 @@ public abstract class Command {
 		this.arg = args[1];
 	}
 	
-	public abstract String exec();
+	public abstract String exec() throws FileNotFoundException;
 }

@@ -9,7 +9,7 @@ public class WriteCommand extends Command {
 
 	@Override
 	public String exec() {
-		// TODO Auto-generated method stub
+		
 		return "";
 	}
 
