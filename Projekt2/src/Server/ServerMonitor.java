@@ -9,9 +9,6 @@ public class ServerMonitor {
 		users.put(u.getUserName(), u);
 	}
 	
-	public boolean authenticate(String username,String password){
-		return users.get(username).authenticate(password);
-	}
 	
 	
 }
