@@ -1,10 +1,5 @@
 package Server;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Scanner;
-
 import java.io.*;
 import java.net.*;
 import java.security.KeyStore;
@@ -12,44 +7,17 @@ import javax.net.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 
-public class ServerTest implements Runnable{
-	private ServerMonitor monitor;
-	
-	private ServerSocket serverSocket = null;
+public class ServerTest implements Runnable {
+    private ServerSocket serverSocket = null;
     private static int numConnectedClients = 0;
-	
+
     public ServerTest(ServerSocket ss) throws IOException {
         serverSocket = ss;
         newListener();
     }
-    
-    private void newListener() { (new Thread(this)).start(); } // calls run()
-    
-   
-	public static void main(String[] args) {
-		System.out.println("\nServer Started\n");
-        int port = -1;
-        if (args.length >= 1) {
-            port = Integer.parseInt(args[0]);
-        }
-        String type = "TLS";
-        try {
-            ServerSocketFactory ssf = getServerSocketFactory(type);
-            ServerSocket ss = ssf.createServerSocket(port);
-            ((SSLServerSocket)ss).setNeedClientAuth(true); // enables client authentication
-            new ServerTest(ss);
-        } catch (IOException e) {
-            System.out.println("Unable to start Server: " + e.getMessage());
-            e.printStackTrace();
-        }
-		
-		
-	}
-	
 
-	
-	private void connectToClient(){
-		try {
+    public void run() {
+        try {
             SSLSocket socket=(SSLSocket)serverSocket.accept();
             newListener();
             SSLSession session = socket.getSession();
@@ -85,12 +53,29 @@ public class ServerTest implements Runnable{
             e.printStackTrace();
             return;
         }
-		
-	}
-	
-	
-	
-	private static ServerSocketFactory getServerSocketFactory(String type) {
+    }
+
+    private void newListener() { (new Thread(this)).start(); } // calls run()
+
+    public static void main(String args[]) {
+        System.out.println("\nServer Started\n");
+        int port = -1;
+        if (args.length >= 1) {
+            port = Integer.parseInt(args[0]);
+        }
+        String type = "TLS";
+        try {
+            ServerSocketFactory ssf = getServerSocketFactory(type);
+            ServerSocket ss = ssf.createServerSocket(port);
+            ((SSLServerSocket)ss).setNeedClientAuth(true); // enables client authentication
+            new ServerTest(ss);
+        } catch (IOException e) {
+            System.out.println("Unable to start Server: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static ServerSocketFactory getServerSocketFactory(String type) {
         if (type.equals("TLS")) {
             SSLServerSocketFactory ssf = null;
             try { // set up key manager to perform server authentication
@@ -116,11 +101,4 @@ public class ServerTest implements Runnable{
         }
         return null;
     }
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
