@@ -35,4 +35,12 @@ public class CommandFactory {
 		
 		
 	}
+	
+	public static String getFileName(String arg){
+		int index = 0;
+		while(arg.charAt(index) == ' ') index++;
+		String file = arg.substring(index, arg.indexOf(' ',index));
+		
+		return file;
+	}
 }
