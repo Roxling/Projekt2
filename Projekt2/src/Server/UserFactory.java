@@ -2,7 +2,7 @@ package Server;
 
 public class UserFactory {
 		private static String[] fields = {"CN=","OU=","O=","L"};
-	public static User createUser(String line){
+	public static User createUser(String line,ServerMonitor mon){
 		try{
 			String[] args = new String[3];
 			for(int i = 0; i< 3; i++){
@@ -14,13 +14,13 @@ public class UserFactory {
 			int rank = Integer.parseInt(args[1]);
 			switch(rank){
 			case User.RANK_AGENCY:
-				return new Agency(args[0],rank,args[2]);
+				return new Agency(args[0],rank,args[2],mon);
 			case User.RANK_DOCTOR:
-				return new Doctor(args[0],rank,args[2]);
+				return new Doctor(args[0],rank,args[2],mon);
 			case User.RANK_NURSE:
-				return new Nurse(args[0],rank,args[2]);
+				return new Nurse(args[0],rank,args[2],mon);
 			case User.RANK_PATIENT:
-				return new Patient(args[0],rank,args[2]);
+				return new Patient(args[0],rank,args[2],mon);
 			}
 			
 		}catch(Exception e){

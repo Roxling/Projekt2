@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class ServerMonitor {
 	HashMap<String,User> users = new HashMap<>();
+	HashMap<String,MedicalRecord> records = new HashMap();
 	
 	public synchronized void addUser(User u){
 		users.put(u.getUserName(),u);
@@ -24,6 +25,15 @@ public class ServerMonitor {
 			}
 		}
 		return "Permission denied";
+	}
+	
+	public synchronized MedicalRecord getRecord(String file){
+		MedicalRecord med = records.get(file);
+		if(med == null){
+			med = new MedicalRecord(file);
+			records.put(file,med);
+		}
+		return med;
 	}
 	
 	

@@ -2,8 +2,8 @@ package Server;
 
 public class Nurse extends User {
 
-	public Nurse(String username, int rank, String division) {
-		super(username, rank, division);
+	public Nurse(String username, int rank, String division,ServerMonitor mon) {
+		super(username, rank, division,mon);
 		// TODO Auto-generated constructor stub
 	}
 

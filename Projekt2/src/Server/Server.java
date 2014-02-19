@@ -57,7 +57,7 @@ public class Server implements Runnable {
             String subject = cert.getSubjectDN().getName();
             
            
-            User user = UserFactory.createUser(subject);
+            User user = UserFactory.createUser(subject,monitor);
             if(user == null){
             	System.out.println("Client invalid cert");
             	socket.close();

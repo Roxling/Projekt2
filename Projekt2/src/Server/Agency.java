@@ -2,8 +2,8 @@ package Server;
 
 public class Agency extends User {
 
-	public Agency(String username, int rank, String division) {
-		super(username, rank, division);
+	public Agency(String username, int rank, String division,ServerMonitor mon) {
+		super(username, rank, division,mon);
 	}
 
 	@Override

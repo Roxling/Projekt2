@@ -8,14 +8,16 @@ public abstract class User {
 	
 	protected String username;
 	protected int rank;
-	private String division;
+	protected String division;
+	protected ServerMonitor mon;
 
 	
 	
-	public User(String username, int rank, String division) {
+	public User(String username, int rank, String division,ServerMonitor mon) {
 		this.username = username;
 		this.rank = rank;
 		this.division = division;
+		this.mon = mon;
 	}
 
 	public String toString(){

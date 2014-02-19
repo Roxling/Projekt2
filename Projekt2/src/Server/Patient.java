@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Patient extends User {
 	
 	private ArrayList<MedicalRecord> records;
-	public Patient(String username,int rank, String division) {
-		super(username,rank,division);
+	public Patient(String username,int rank, String division,ServerMonitor mon) {
+		super(username,rank,division,mon);
 		records = new ArrayList<MedicalRecord>();
 		
 	}
