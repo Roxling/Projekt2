@@ -2,7 +2,6 @@ package Client;
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -90,9 +89,8 @@ public class Client {
 	            SSLSession session = socket.getSession();
 	            X509Certificate cert = (X509Certificate)session.getPeerCertificateChain()[0];
 	            
-	            System.out.println("secure connection established\n\n");
 
-	            askForMedRecords(socket);
+	            communicate(socket);
             
 	        	
 	    		
@@ -126,7 +124,7 @@ public class Client {
 		
 	}
 
-	public static void askForMedRecords(SSLSocket socket) throws IOException{
+	public static void communicate(SSLSocket socket) throws IOException{
 	
 		BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -134,15 +132,17 @@ public class Client {
 		
         String msg;
         boolean finished = false;
-        System.out.println("Enter a command, type 'quit' to logout:");
+        System.out.println("Enter a command, type 'help' for a commandlist, type 'quit' to logout:");
 		while(!finished) {
 			
             System.out.print(">");
             msg = read.readLine();
             if (msg.equalsIgnoreCase("quit")) {
 			    finished=true;
-			}else{
-            	
+			}else if(msg.equalsIgnoreCase("help")){
+				writeHelp();
+			}
+            else{
             	out.println(msg);
             	out.flush();
             	
@@ -157,5 +157,16 @@ public class Client {
 		
 	
 		
+	}
+
+	private static void writeHelp() {
+		System.out.println("\t\t\t /* HELP */");
+		System.out.println("-create [filename] [header] \t\t\t to create a medical record");
+		System.out.println("-remove [filename] \t\t\t\t to remove a medical record");
+		System.out.println("-read [filename] \t\t\t\t to read a medical record");
+		System.out.println("-write [filename] [content] \t\t\t to write content to a medical record");
+		System.out.println();
+		System.out.println("'Invalid command or missing arguments' \t\t if invalid command was entered");
+		System.out.println("'Permission denied' \t\t\t\t if tried to access file withour permission");
 	}
 }
