@@ -36,11 +36,21 @@ public class CommandFactory {
 		
 	}
 	
-	public static String getFileName(String arg){
+	public static String[] getArgs(String arg){
 		int index = 0;
-		while(arg.charAt(index) == ' ') index++;
-		String file = arg.substring(index, arg.indexOf(' ',index));
-		
-		return file;
+		String args[] = new String[2];
+		if(!arg.isEmpty() && arg.charAt(0) == ' '){
+			while(index < arg.length() &&  arg.charAt(index) == ' ') index++;			
+		}
+		int split = arg.indexOf(' ',index);
+		if(split == -1) split = arg.length();
+		args[0] = arg.substring(index, split);
+		if(arg.length() > split+1){
+			args[1] = arg.substring(split+1, arg.length());
+		}else{
+			args[1] = "";
+		}
+		return args;
 	}
+
 }

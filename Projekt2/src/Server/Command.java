@@ -5,9 +5,12 @@ public abstract class Command {
 	public static final int REMOVE_COMMAND = 1;
 	public static final int READ_COMMAND = 2;
 	public static final int WRITE_COMMAND = 3;
-	private String arg;
+	protected String arg;
+	protected String filename;
 	public Command(String arg){
-		this.arg = arg;
+		String args[] = CommandFactory.getArgs(arg);
+		this.filename = args[0];
+		this.arg = args[1];
 	}
 	
 	public abstract String exec();
