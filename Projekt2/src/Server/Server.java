@@ -59,8 +59,7 @@ public class Server implements Runnable {
             	socket.close();
             	return;
             }
-            System.out.println("Client "+user.getUserName() + " connected");
-            
+            monitor.addToLog("Client "+user.getUserName() + " connected");
 
             PrintWriter out = null;
             BufferedReader in = null;
@@ -74,12 +73,12 @@ public class Server implements Runnable {
             	char n = 0;
             	out.print(s+n);
 				out.flush();
-				monitor.addToLog(subject +" : " + clientMsg + "\n");
+				monitor.addToLog(user.getUserName()+" : " + clientMsg + "\n");
 			}
 			in.close();
 			out.close();
 			socket.close();
-			System.out.println("Client "+user.getUserName() + " Disconnected");
+			monitor.addToLog("Client "+user.getUserName() + " disconnected");
 		} catch (IOException e) {
             System.out.println("Client died: " + e.getMessage());
             e.printStackTrace();
