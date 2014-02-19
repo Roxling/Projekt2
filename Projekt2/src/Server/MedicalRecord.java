@@ -33,15 +33,19 @@ public class MedicalRecord {
 		int first = 0;
 		int second = line.indexOf("/");
 		patient = line.substring(first, second);
+		patient = patient.toLowerCase();
 		first = second+1;
 		second = line.indexOf("/", second+2);
 		nurse = line.substring(first, second);
+		nurse = nurse.toLowerCase();
 		first = second+1;
 		second = line.indexOf("/", second+2);
 		doctor = line.substring(first, second);
+		doctor = doctor.toLowerCase();
 		first = second+1;
 		second = line.length();
 		division = line.substring(first, second);
+		division = division.toLowerCase();
 	}
 	
 	public String getPatient(){

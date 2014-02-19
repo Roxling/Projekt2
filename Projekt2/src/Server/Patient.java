@@ -33,7 +33,7 @@ public class Patient extends User {
 	@Override
 	protected boolean hasReadPermission(Command c) {
 		MedicalRecord med = mon.getRecord(c.filename);
-		return med.getPatient().equals(username);
+		return med.getPatient().equals(username.toLowerCase());
 	}
 	
 }

@@ -14,9 +14,9 @@ public abstract class User {
 	
 	
 	public User(String username, int rank, String division,ServerMonitor mon) {
-		this.username = username;
+		this.username = username.toLowerCase();
 		this.rank = rank;
-		this.division = division;
+		this.division = division.toLowerCase();
 		this.mon = mon;
 	}
 
