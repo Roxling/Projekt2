@@ -77,8 +77,8 @@ public class Server implements Runnable {
             	String s = monitor.execCommand(user,c);
             	out.println(s);
 				out.flush();
+				monitor.addToLog(clientMsg);
 			}
-            
 			in.close();
 			out.close();
 			socket.close();
