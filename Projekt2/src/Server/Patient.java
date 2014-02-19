@@ -11,4 +11,8 @@ public class Patient extends User {
 		
 	}
 	
+	public String welcomeMessage(){
+		return "Welcome, patient " + this.username;
+	}
+	
 }
