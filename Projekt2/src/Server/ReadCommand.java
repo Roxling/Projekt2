@@ -14,6 +14,7 @@ public class ReadCommand extends Command {
 	@Override
 	public String exec() throws FileNotFoundException {
 		String retLine = "";
+		if(!checkFile()) return "File not found";
 		File f = new File("Records/"+filename);
 		if(!f.exists()) return "File "+filename+" not found";
 		Scanner scan = new Scanner(f);

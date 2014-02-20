@@ -46,26 +46,14 @@ public class ServerMonitor {
 	}
 
 	public synchronized String execCommand(User user, Command c) {
-		if(!checkFile(c.filename)){
-			return "File "+c.filename+" not found";
-		}
 		
 		if(user.hasPermission(c)){
 			try {
 				return c.exec();
-			} catch (FileNotFoundException e) {
-				System.out.println("There is no such file");
+			} catch (FileNotFoundException e) {;
 			}
 		}
 		return "Permission denied";
-	}
-	
-	private boolean checkFile(String filename){
-		if(filename.length() > 0){
-			File f = new File("Records/"+filename);
-			return f.exists();
-		}
-		return false;
 	}
 	
 	public synchronized MedicalRecord getRecord(String file){

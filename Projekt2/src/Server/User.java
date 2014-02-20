@@ -39,8 +39,8 @@ public abstract class User {
 		case Command.READ_COMMAND : return hasReadPermission(c);
 		case Command.REMOVE_COMMAND : return hasRemovePermission(c);
 		case Command.WRITE_COMMAND : return hasWritePermission(c);
+		default: return true;
 		}
-		return false;
 	}
 	
 	protected abstract boolean hasCreatePermission(Command c);

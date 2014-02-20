@@ -14,6 +14,7 @@ public class CreateCommand extends Command {
 	@Override
 	public String exec() {
 		PrintWriter pw = null;
+		if(!checkFile()) return "File not found";
 		String filepath = "Records/"+filename;
 		File f = new File(filepath);
 		if(f.exists()) return "File already exists";

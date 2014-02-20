@@ -1,5 +1,6 @@
 package Server;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 public abstract class Command {
@@ -20,5 +21,13 @@ public abstract class Command {
 	
 	public int getCommandnum(){
 		return commandnum;
+	}
+	
+	protected boolean checkFile(){
+		if(filename.length() > 0){
+			File f = new File("Records/"+filename);
+			return f.exists()&&!f.isDirectory();
+		}
+		return false;
 	}
 }

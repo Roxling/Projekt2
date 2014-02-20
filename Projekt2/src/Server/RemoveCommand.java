@@ -12,6 +12,7 @@ public class RemoveCommand extends Command {
 	@Override
 	public String exec() {
 		File f = new File("Records/"+filename);
+		if(!checkFile()) return "File not found";
 		if(!f.exists()) return "File "+filename+" does not exist.";
 		f.delete();
 		return "File "+filename+" deleted";

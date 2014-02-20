@@ -11,15 +11,18 @@ public class CommandFactory {
 			fields.add(Command.REMOVE_COMMAND,"remove");
 			fields.add(Command.READ_COMMAND,"read");
 			fields.add(Command.WRITE_COMMAND,"write");
-			
+			boolean nocommand = false;
 			int first = line.indexOf('-');
 			int second = line.indexOf(' ', first+1);
-			
+			if(second == -1){
+				second = line.length();
+				nocommand = true;
+			}
 			String command = line.substring(first+1, second);
 			command = command.toLowerCase();
 			
+			if(fields.contains(command) && nocommand) return new NoCommand("No arguments");
 			String argument = line.substring(second+1);
-			
 			switch(fields.indexOf(command)){
 			case Command.CREATE_COMMAND:
 				return new CreateCommand(argument);
@@ -31,9 +34,7 @@ public class CommandFactory {
 				return new WriteCommand(argument);
 			}
 		}catch(Exception e){}
-		return new NoCommand("");
-		
-		
+			return new NoCommand("Invalid command");
 	}
 	
 	public static String[] getArgs(String arg){
