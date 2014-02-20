@@ -167,8 +167,10 @@ public class Client {
 		System.out.println("-remove [filename] \t\t\t\t to remove a medical record");
 		System.out.println("-read [filename] \t\t\t\t to read a medical record");
 		System.out.println("-write [filename] [content] \t\t\t to write content to a medical record");
+		System.out.println("quit to quit, help to view this menu.");
 		System.out.println();
 		System.out.println("'Invalid command or missing arguments' \t\t if invalid command was entered");
-		System.out.println("'Permission denied' \t\t\t\t if tried to access file withour permission");
+		System.out.println("'Permission denied' \t\t\t\t if tried to access file without permission");
+		System.out.println("File not found or invalid arguments \t\t If the requested file does not exist.");
 	}
 }
