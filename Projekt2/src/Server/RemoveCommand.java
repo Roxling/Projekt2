@@ -18,4 +18,9 @@ public class RemoveCommand extends Command {
 		return "File "+filename+" deleted";
 	}
 
+	@Override
+	protected boolean needFileCheck() {
+		return true;
+	}
+
 }

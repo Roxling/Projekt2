@@ -24,10 +24,13 @@ public abstract class Command {
 	}
 	
 	protected boolean checkFile(){
-		if(filename.length() > 0){
-			File f = new File("Records/"+filename);
-			return f.exists()&&!f.isDirectory();
-		}
-		return false;
+		if(needFileCheck()){
+			if(filename.length() > 0){
+				File f = new File("Records/"+filename);
+				return f.exists()&&!f.isDirectory();
+			}
+			return false;	
+		}return true;
 	}
+	protected abstract boolean needFileCheck();
 }

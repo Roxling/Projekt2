@@ -27,4 +27,9 @@ public class ReadCommand extends Command {
 		return sb.toString();
 	}
 
+	@Override
+	protected boolean needFileCheck() {
+		return true;
+	}
+
 }

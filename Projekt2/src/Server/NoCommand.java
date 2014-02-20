@@ -12,4 +12,10 @@ public class NoCommand extends Command {
 		return msg;
 	}
 
+	@Override
+	protected boolean needFileCheck() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

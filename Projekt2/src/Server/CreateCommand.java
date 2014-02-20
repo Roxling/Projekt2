@@ -44,4 +44,9 @@ public class CreateCommand extends Command {
 		return count == 3;
 	}
 
+	@Override
+	protected boolean needFileCheck() {
+		return false;
+	}
+
 }

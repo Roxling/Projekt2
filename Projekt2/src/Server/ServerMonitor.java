@@ -46,7 +46,7 @@ public class ServerMonitor {
 	}
 
 	public synchronized String execCommand(User user, Command c) {
-		
+		if(!c.checkFile()) return "File not found or invalid arguments";
 		if(user.hasPermission(c)){
 			try {
 				return c.exec();

@@ -41,4 +41,9 @@ public class WriteCommand extends Command {
 		return "Success";
 	}
 
+	@Override
+	protected boolean needFileCheck() {
+		return true;
+	}
+
 }
