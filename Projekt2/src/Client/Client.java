@@ -129,8 +129,7 @@ public class Client {
 		Scanner read = new Scanner(System.in);
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        //Scanner in = new Scanner(socket.getInputStream());
-		
+		try{
         String msg;
         boolean finished = false;
         System.out.println("Enter a command, type 'help' for a commandlist, type 'quit' to logout:");
@@ -152,11 +151,14 @@ public class Client {
             	System.out.println(sb);
 			}
         }
-		
+		}catch(Exception e){
+			System.out.println("Something went wrong! Faulty Termination?");
+			
+		}
 		in.close();
 		out.close();
 		read.close();
-		
+	
 	
 		
 	}
