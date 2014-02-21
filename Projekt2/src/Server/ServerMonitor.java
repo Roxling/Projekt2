@@ -23,7 +23,7 @@ public class ServerMonitor {
 	    logger.setUseParentHandlers(false);
 	    try {
 	    	String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-	        fh = new FileHandler(timeStamp+"-log.txt");  
+	        fh = new FileHandler("Logs/"+timeStamp+"-log.txt");  
 	        logger.addHandler(fh);
 	        SimpleFormatter formatter = new SimpleFormatter();  
 	        fh.setFormatter(formatter);  
