@@ -3,10 +3,11 @@ package Server;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.rmi.AccessException;
 
 public class CreateCommand extends Command {
 
-	public CreateCommand(String arg) {
+	public CreateCommand(String arg) throws AccessException {
 		super(arg);
 		commandnum = Command.CREATE_COMMAND;
 	}

@@ -3,11 +3,12 @@ package Server;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.rmi.AccessException;
 import java.util.Scanner;
 
 public class WriteCommand extends Command {
 
-	public WriteCommand(String arg) {
+	public WriteCommand(String arg) throws AccessException {
 		super(arg);
 		commandnum = Command.WRITE_COMMAND;
 	}

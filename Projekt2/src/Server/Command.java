@@ -2,6 +2,7 @@ package Server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.rmi.AccessException;
 
 public abstract class Command {
 	public static final int CREATE_COMMAND = 0;
@@ -11,7 +12,7 @@ public abstract class Command {
 	protected String arg;
 	protected String filename;
 	protected int commandnum = -1;
-	public Command(String arg){
+	public Command(String arg) throws AccessException{
 		String args[] = CommandFactory.getArgs(arg);
 		this.filename = args[0];
 		this.arg = args[1];

@@ -27,13 +27,12 @@ public class Doctor extends User {
 
 	@Override
 	protected boolean hasReadPermission(Command c) {
-		File sought = new File(c.filename);
-		if (sought.exists()){
 		MedicalRecord med = mon.getRecord(c.filename);
-		return (med.getDivision().equals(division) || med.getDoctor().equals(username));
-		}else{
-			return false;
+		if(med != null){
+			return (med.getDivision().equals(division) || med.getDoctor().equals(username));
+			
 		}
+		return false;
 	}
 
 }

@@ -173,6 +173,6 @@ public class Client {
 		System.out.println();
 		System.out.println("'Invalid command or missing arguments' \t\t if invalid command was entered");
 		System.out.println("'Permission denied' \t\t\t\t if tried to access file without permission");
-		System.out.println("File not found or invalid arguments \t\t If the requested file does not exist.");
+		System.out.println("'File not found or invalid arguments \t\t If the requested file does not exist.'");
 	}
 }

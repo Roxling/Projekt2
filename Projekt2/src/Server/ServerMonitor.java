@@ -50,7 +50,7 @@ public class ServerMonitor {
 		if(user.hasPermission(c)){
 			try {
 				return c.exec();
-			} catch (FileNotFoundException e) {;
+			} catch (FileNotFoundException e) {
 			}
 		}
 		return "Permission denied";

@@ -1,8 +1,10 @@
 package Server;
 
+import java.rmi.AccessException;
+
 public class NoCommand extends Command {
 	private String msg;
-	public NoCommand(String arg) {
+	public NoCommand(String arg) throws AccessException {
 		super(arg);
 		msg = arg;
 	}

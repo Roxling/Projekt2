@@ -1,5 +1,6 @@
 package Server;
 
+import java.rmi.AccessException;
 import java.util.ArrayList;
 
 public class CommandFactory {
@@ -34,10 +35,14 @@ public class CommandFactory {
 				return new WriteCommand(argument);
 			}
 		}catch(Exception e){}
-			return new NoCommand("Invalid command");
+			try {
+				return new NoCommand("Invalid command");
+			} catch (AccessException e) {
+				return null;
+			}
 	}
 	
-	public static String[] getArgs(String arg){
+	public static String[] getArgs(String arg) throws AccessException{
 		int index = 0;
 		String args[] = new String[2];
 		if(!arg.isEmpty() && arg.charAt(0) == ' '){
@@ -46,6 +51,7 @@ public class CommandFactory {
 		int split = arg.indexOf(' ',index);
 		if(split == -1) split = arg.length();
 		args[0] = arg.substring(index, split);
+		if(args[0].contains("/")) throw new AccessException("Invalid filename");
 		if(arg.length() > split+1){
 			args[1] = arg.substring(split+1, arg.length());
 		}else{

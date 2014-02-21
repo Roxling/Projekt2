@@ -1,10 +1,11 @@
 package Server;
 
 import java.io.File;
+import java.rmi.AccessException;
 
 public class RemoveCommand extends Command {
 
-	public RemoveCommand(String arg) {
+	public RemoveCommand(String arg) throws AccessException {
 		super(arg);
 		commandnum = Command.READ_COMMAND;
 	}

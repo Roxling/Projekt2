@@ -2,11 +2,12 @@ package Server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.rmi.AccessException;
 import java.util.Scanner;
 
 public class ReadCommand extends Command {
 
-	public ReadCommand(String arg) {
+	public ReadCommand(String arg) throws AccessException {
 		super(arg);
 		commandnum = Command.READ_COMMAND;
 	}
@@ -16,7 +17,6 @@ public class ReadCommand extends Command {
 		String retLine = "";
 		if(!checkFile()) return "File not found";
 		File f = new File("Records/"+filename);
-		if(!f.exists()) return "File "+filename+" not found";
 		Scanner scan = new Scanner(f);
 		StringBuilder sb = new StringBuilder();
 		while(scan.hasNext()){
