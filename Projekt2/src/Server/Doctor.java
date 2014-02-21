@@ -1,5 +1,7 @@
 package Server;
 
+import java.io.File;
+
 public class Doctor extends User {
 
 	public Doctor(String username, int rank, String division,ServerMonitor mon) {
@@ -25,8 +27,13 @@ public class Doctor extends User {
 
 	@Override
 	protected boolean hasReadPermission(Command c) {
+		File sought = new File(c.filename);
+		if (sought.exists()){
 		MedicalRecord med = mon.getRecord(c.filename);
 		return (med.getDivision().equals(division) || med.getDoctor().equals(username));
+		}else{
+			return false;
+		}
 	}
 
 }

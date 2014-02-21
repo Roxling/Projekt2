@@ -80,8 +80,7 @@ public class Server implements Runnable {
 			socket.close();
 			monitor.addToLog("Client "+user.getUserName() + " disconnected");
 		} catch (IOException e) {
-            System.out.println("Client died: " + e.getMessage());
-            e.printStackTrace();
+            monitor.addToLog("Client died: " + e.getMessage());
             return;
         }
 		
