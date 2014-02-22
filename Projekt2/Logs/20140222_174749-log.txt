@@ -1,0 +1,14 @@
+feb 22, 2014 5:49:59 EM Server.ServerMonitor addToLog
+Info: Client doctor1 connected
+feb 22, 2014 5:50:32 EM Server.ServerMonitor addToLog
+Info: doctor1 : -create record1.txt Patient/Nurse/Doctor1/Division1
+
+feb 22, 2014 5:51:14 EM Server.ServerMonitor addToLog
+Info: doctor1 : -write record1.txt Patient has a cold..
+
+feb 22, 2014 5:51:19 EM Server.ServerMonitor addToLog
+Info: doctor1 : -read record1.txt
+
+feb 22, 2014 5:51:37 EM Server.ServerMonitor addToLog
+Info: doctor1 : -remove record1.txt
+
