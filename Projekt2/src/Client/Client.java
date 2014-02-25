@@ -19,6 +19,7 @@ import javax.security.cert.X509Certificate;
 
 public class Client {
 	private static Scanner consoleScanner;
+	private static final String trustStorePw = "cv084AK@177LF2K";
 	
 	public static void main(String[] args) {
 		consoleScanner = new Scanner(System.in);
@@ -59,7 +60,7 @@ public class Client {
 	            		SSLContext ctx = SSLContext.getInstance("TLS");
 	            		
 	            		ks.load(new FileInputStream("../Projekt2/Client/" +user+"/keystore"), password);  // keystore password (storepass)
-	            		ts.load(new FileInputStream("../Projekt2/Client/"+user+"/truststore"), password); // truststore password (storepass);
+	            		ts.load(new FileInputStream("../Projekt2/Client/TrustStore/truststore"),trustStorePw.toCharArray()); // truststore password (storepass);
 	            		kmf.init(ks, password); // user password (keypass)
 	            		tmf.init(ts); // keystore can be used as truststore here
 	            		ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
